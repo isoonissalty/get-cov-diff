@@ -4,7 +4,7 @@
   "description": "cli to check diff of test coverage output",
   "main": "index.js",
   "bin": {
-    "get-cov-diff": "./get-cov-diff.sh"
+    "get-cov-diff": "./get-cov-diff"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
