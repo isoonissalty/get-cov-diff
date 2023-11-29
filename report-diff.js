@@ -1,9 +1,7 @@
-import { diff } from 'radash'
-
 const fs = require('fs')
+const { diff } = require('radash')
 
-
-export const reportDiff = (filePathTarget, filePathMain) => {
+const reportDiff = (filePathTarget, filePathMain) => {
   const fileContentTarget = fs.readFileSync(filePathTarget, 'utf-8')
   const fileContentMain = fs.readFileSync(filePathMain, 'utf-8')
   const lineTargets = fileContentTarget.split('\n')
@@ -61,3 +59,5 @@ export const reportDiff = (filePathTarget, filePathMain) => {
     },
   }))
 }
+
+exports.reportDiff = reportDiff
