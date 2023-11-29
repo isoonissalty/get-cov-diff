@@ -8,9 +8,9 @@ fi
 # store current git branch name
 current_branch=$(git branch --show-current)
 
-target_branch=$1
+BASEDIR=$(dirname $(realpath $0))
 
-root_dir=$0
+# target_branch=$1
 
 # Display the provided target branches
 echo "compare $current_branch branch to $target_branch"
@@ -23,7 +23,7 @@ nvm use
 npm i
 
 # Run npm run test:coverage and append output to a file
-npm run test:coverage > $root_dir/coverage/branch_current_coverage.txt
+npm run test:coverage > $BASEDIR/coverage/branch_current_coverage.txt
 
 # clean up change files after install (package-lock.json)
 git restore .
@@ -36,11 +36,11 @@ nvm use
 npm i
 
 # Run npm run test:coverage and append output to a file
-npm run test:coverage > $root_dir/coverage/branch_target_coverage.txt
+npm run test:coverage > $BASEDIR/coverage/branch_target_coverage.txt
 
 nvm use stable
 # running index.js in this file directory even calling from another directory
-node $root_dir/index.js $root_dir/coverage/branch_current_coverage.txt $root_dir/coverage/branch_target_coverage.txt
+node $BASEDIR/index.js $BASEDIR/coverage/branch_current_coverage.txt $BASEDIR/coverage/branch_target_coverage.txt
 
 # clean up change files after install (package-lock.json)
 git restore .
