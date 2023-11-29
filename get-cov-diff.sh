@@ -10,7 +10,7 @@ current_branch=$(git branch --show-current)
 
 BASEDIR=$(dirname $(realpath $0))
 
-# target_branch=$1
+target_branch=$1
 
 # Display the provided target branches
 echo "compare $current_branch branch to $target_branch"
