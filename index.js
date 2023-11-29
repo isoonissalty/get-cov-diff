@@ -1,7 +1,7 @@
 const { reportDiff } = require('./report-diff.js')
 
 // Access command-line arguments
-const [, currentCoverageOutput, targetCoverageOutput] = process.argv
+const [,, currentCoverageOutput, targetCoverageOutput] = process.argv
 
 function getCoverageDiff(currentCoverageOutput, targetCoverageOutput) {
   try {

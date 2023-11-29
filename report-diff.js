@@ -35,7 +35,8 @@ const reportDiff = (filePathTarget, filePathMain) => {
   const dataTarget = getDataFromCoverage(lineTargets)
   const dataMain = getDataFromCoverage(lineMains)
 
-  diff(Object.keys(dataTarget), Object.keys(dataMain)).map((v) => ({
+
+  return diff(Object.keys(dataTarget), Object.keys(dataMain)).map((v) => ({
     files: v,
     stmts: {
       main: dataMain?.[v]?.stmts,
