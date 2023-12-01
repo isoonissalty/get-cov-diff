@@ -24,7 +24,5 @@
     "url": "https://github.com/isoonissalty/get-cov-diff/issues"
   },
   "homepage": "https://github.com/isoonissalty/get-cov-diff#readme",
-  "dependencies": {
-    "radash": "^11.0.0"
-  }
+  "dependencies": {}
 }

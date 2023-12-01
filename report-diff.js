@@ -1,5 +1,4 @@
 const fs = require('fs')
-const { diff } = require('radash')
 
 const reportDiff = (filePathTarget, filePathMain) => {
   const fileContentTarget = fs.readFileSync(filePathTarget, 'utf-8')
@@ -35,30 +34,43 @@ const reportDiff = (filePathTarget, filePathMain) => {
   const dataTarget = getDataFromCoverage(lineTargets)
   const dataMain = getDataFromCoverage(lineMains)
 
-
-  return diff(Object.keys(dataTarget), Object.keys(dataMain)).map((v) => ({
-    files: v,
-    stmts: {
-      main: dataMain?.[v]?.stmts,
-      target: dataTarget?.[v]?.stmts ?? 0,
-      diff: dataTarget?.[v]?.stmts ?? 0 - dataMain?.[v]?.stmts ?? 0,
-    },
-    branch: {
-      main: dataMain?.[v]?.branch,
-      target: dataTarget?.[v]?.branch ?? 0,
-      diff: dataTarget?.[v]?.branch ?? 0 - dataMain?.[v]?.stmts ?? 0,
-    },
-    funcs: {
-      main: dataMain?.[v]?.funcs,
-      target: dataTarget?.[v]?.funcs ?? 0,
-      diff: dataTarget?.[v]?.funcs ?? 0 - dataMain?.[v]?.stmts ?? 0,
-    },
-    lines: {
-      main: dataMain?.[v]?.lines,
-      target: dataTarget?.[v]?.lines ?? 0,
-      diff: dataTarget?.[v]?.lines ?? 0 - dataMain?.[v]?.stmts ?? 0,
-    },
-  }))
+  return Object.keys(dataTarget)
+    .filter(
+      (f) =>
+        (dataTarget[f] && !dataMain?.[f]) ||
+        dataTarget[f].stmts !== (dataMain?.[f]?.stmts ?? -1) ||
+        dataTarget[f].branch !== (dataMain?.[f]?.branch ?? -1) ||
+        dataTarget[f].funcs !== (dataMain?.[f]?.funcs ?? -1) ||
+        dataTarget[f].lines !== (dataMain?.[f]?.lines ?? -1),
+    )
+    .map((v) => ({
+      files: v,
+      stmts: {
+        main: dataMain?.[v]?.stmts,
+        target: dataTarget?.[v]?.stmts ?? 0,
+        diff: dataTarget?.[v]?.stmts ?? 0 - dataMain?.[v]?.stmts ?? 0,
+      },
+      branch: {
+        main: dataMain?.[v]?.branch,
+        target: dataTarget?.[v]?.branch ?? 0,
+        diff: dataTarget?.[v]?.branch ?? 0 - dataMain?.[v]?.stmts ?? 0,
+      },
+      funcs: {
+        main: dataMain?.[v]?.funcs,
+        target: dataTarget?.[v]?.funcs ?? 0,
+        diff: dataTarget?.[v]?.funcs ?? 0 - dataMain?.[v]?.stmts ?? 0,
+      },
+      lines: {
+        main: dataMain?.[v]?.lines,
+        target: dataTarget?.[v]?.lines ?? 0,
+        diff: dataTarget?.[v]?.lines ?? 0 - dataMain?.[v]?.stmts ?? 0,
+      },
+      avg: {
+        main: (dataMain?.[v]?.stmts + dataMain?.[v]?.branch + dataMain?.[v]?.funcs + dataMain?.[v]?.lines) / 4,
+        target:
+          (dataTarget?.[v]?.stmts + dataTarget?.[v]?.branch + dataTarget?.[v]?.funcs + dataTarget?.[v]?.lines) / 4,
+      },
+    }))
 }
 
 exports.reportDiff = reportDiff
