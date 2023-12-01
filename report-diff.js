@@ -1,10 +1,13 @@
 const fs = require('fs')
 
-const reportDiff = (filePathTarget, filePathMain) => {
+const reportDiff = (filePathTarget, filePathMain, fileChangesPath) => {
   const fileContentTarget = fs.readFileSync(filePathTarget, 'utf-8')
   const fileContentMain = fs.readFileSync(filePathMain, 'utf-8')
+  const fileContentChanges = fs.readFileSync(fileChangesPath, 'utf-8')
+
   const lineTargets = fileContentTarget.split('\n')
   const lineMains = fileContentMain.split('\n')
+  const lineChanges = fileContentChanges.split('\n')
 
   const getDataFromCoverage = (lines) => {
     const data = {}
@@ -33,8 +36,11 @@ const reportDiff = (filePathTarget, filePathMain) => {
 
   const dataTarget = getDataFromCoverage(lineTargets)
   const dataMain = getDataFromCoverage(lineMains)
+  const dataChanges = lineChanges
+    .filter((v) => (v.startsWith('app/') || v.startsWith('src/')) && (v.includes('.test.') || v.includes('.spec.')))
+    .map((v) => v.replace('app/', ''))
 
-  return Object.keys(dataTarget)
+  return dataChanges
     .filter(
       (f) =>
         (dataTarget[f] && !dataMain?.[f]) ||

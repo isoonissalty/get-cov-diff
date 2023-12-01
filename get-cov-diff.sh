@@ -32,6 +32,8 @@ git restore .
 git checkout $target_branch
 git pull origin $target_branch
 
+git diff --name-only $current_branch $target_branch > $BASEDIR/changed_files.txt
+
 nvm use
 npm i
 
