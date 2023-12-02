@@ -1,11 +1,11 @@
 const { reportDiff } = require('./report-diff.js')
 
 // Access command-line arguments
-const [,, currentCoverageOutput, targetCoverageOutput] = process.argv
+const [,, currentCoverageOutput, targetCoverageOutput, currentChangeOutput] = process.argv
 
-function getCoverageDiff(currentCoverageOutput, targetCoverageOutput) {
+function getCoverageDiff(currentCoverageOutput, targetCoverageOutput, currentChangeOutput) {
   try {
-    return reportDiff(currentCoverageOutput, targetCoverageOutput)
+    return reportDiff(currentCoverageOutput, targetCoverageOutput, currentChangeOutput)
   } catch (error) {
     console.error('An error occurred:', error.message)
     process.exit(1)
@@ -13,4 +13,4 @@ function getCoverageDiff(currentCoverageOutput, targetCoverageOutput) {
 }
 
 // Output the result
-console.log(getCoverageDiff(currentCoverageOutput, targetCoverageOutput))
+console.log(getCoverageDiff(currentCoverageOutput, targetCoverageOutput, currentChangeOutput))
