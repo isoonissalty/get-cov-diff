@@ -42,7 +42,7 @@ npm run test:coverage > $BASEDIR/branch_target_coverage.txt
 
 nvm use stable
 # running index.js in this file directory even calling from another directory
-node $BASEDIR/index.js $BASEDIR/branch_current_coverage.txt $BASEDIR/branch_target_coverage.txt
+node $BASEDIR/index.js $BASEDIR/branch_current_coverage.txt $BASEDIR/branch_target_coverage.txt $BASEDIR/changed_files.txt
 
 # clean up change files after install (package-lock.json)
 git restore .
