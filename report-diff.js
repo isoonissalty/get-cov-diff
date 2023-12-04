@@ -37,7 +37,7 @@ const reportDiff = (filePathTarget, filePathMain, fileChangesPath) => {
   const dataTarget = getDataFromCoverage(lineTargets)
   const dataMain = getDataFromCoverage(lineMains)
   const dataChanges = lineChanges
-    .filter((v) => (v.startsWith('app/') || v.startsWith('src/')) && (!v.includes('.test.') && !v.includes('.spec.')))
+    .filter((v) => (v.startsWith('app/') || v.startsWith('src/')) && !(v.includes('.test.') || v.includes('.spec.')))
     .map((v) => v.replace('app/', ''))
 
   return dataChanges.map((v) => ({
