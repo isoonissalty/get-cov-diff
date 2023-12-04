@@ -43,32 +43,32 @@ const reportDiff = (filePathTarget, filePathMain, fileChangesPath) => {
   return dataChanges
     .filter(
       (f) =>
-        (dataTarget[f] && !dataMain?.[f]) ||
-        dataTarget[f].stmts !== (dataMain?.[f]?.stmts ?? -1) ||
-        dataTarget[f].branch !== (dataMain?.[f]?.branch ?? -1) ||
-        dataTarget[f].funcs !== (dataMain?.[f]?.funcs ?? -1) ||
-        dataTarget[f].lines !== (dataMain?.[f]?.lines ?? -1),
+        (dataTarget?.[f] && !dataMain?.[f]) ||
+        dataTarget?.[f]?.stmts !== (dataMain?.[f]?.stmts ?? -1) ||
+        dataTarget?.[f]?.branch !== (dataMain?.[f]?.branch ?? -1) ||
+        dataTarget?.[f]?.funcs !== (dataMain?.[f]?.funcs ?? -1) ||
+        dataTarget?.[f]?.lines !== (dataMain?.[f]?.lines ?? -1),
     )
     .map((v) => ({
       files: v,
       stmts: {
         main: dataMain?.[v]?.stmts,
-        target: dataTarget?.[v]?.stmts ?? 0,
+        target: dataTarget?.[v]?.stmts,
         diff: dataTarget?.[v]?.stmts ?? 0 - dataMain?.[v]?.stmts ?? 0,
       },
       branch: {
         main: dataMain?.[v]?.branch,
-        target: dataTarget?.[v]?.branch ?? 0,
+        target: dataTarget?.[v]?.branch,
         diff: dataTarget?.[v]?.branch ?? 0 - dataMain?.[v]?.stmts ?? 0,
       },
       funcs: {
         main: dataMain?.[v]?.funcs,
-        target: dataTarget?.[v]?.funcs ?? 0,
+        target: dataTarget?.[v]?.funcs,
         diff: dataTarget?.[v]?.funcs ?? 0 - dataMain?.[v]?.stmts ?? 0,
       },
       lines: {
         main: dataMain?.[v]?.lines,
-        target: dataTarget?.[v]?.lines ?? 0,
+        target: dataTarget?.[v]?.lines,
         diff: dataTarget?.[v]?.lines ?? 0 - dataMain?.[v]?.stmts ?? 0,
       },
       avg: {
