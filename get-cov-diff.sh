@@ -6,7 +6,7 @@ if [ $# -ne 1 ]; then
   exit 1
 fi
 # store current git branch name
-current_branch=$(git branch --show-current)
+current_branch=$(git rev-parse --short HEAD)
 
 BASEDIR=$(dirname $(realpath $0))
 
