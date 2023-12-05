@@ -23,39 +23,39 @@ else
   fi
 fi
 
-# # Display the provided target branches
-# echo "compare $current_branch branch to $target_branch"
+# Display the provided target branches
+echo "compare $current_branch branch to $target_branch"
 
-# # Run nvm use (if nvm is installed)
-# export NVM_DIR=$HOME/.nvm;
-# source $NVM_DIR/nvm.sh;
+# Run nvm use (if nvm is installed)
+export NVM_DIR=$HOME/.nvm;
+source $NVM_DIR/nvm.sh;
 
-# nvm use
-# npm i
+nvm use
+npm i
 
-# # Run npm run test:coverage and append output to a file
-# npm run test:coverage > $BASEDIR/branch_current_coverage.txt
+# Run npm run test:coverage and append output to a file
+npm run test:coverage > $BASEDIR/branch_current_coverage.txt
 
-# # clean up change files after install (package-lock.json)
-# git restore .
+# clean up change files after install (package-lock.json)
+git restore .
 
-# # Checkout the second target branch
-# git checkout $target_branch
-# git pull origin $target_branch
+# Checkout the second target branch
+git checkout $target_branch
+git pull origin $target_branch
 
-# git diff --name-only $current_branch $target_branch > $BASEDIR/changed_files.txt
+git diff --name-only $current_branch $target_branch > $BASEDIR/changed_files.txt
 
-# nvm use
-# npm i
+nvm use
+npm i
 
-# # Run npm run test:coverage and append output to a file
-# npm run test:coverage > $BASEDIR/branch_target_coverage.txt
+# Run npm run test:coverage and append output to a file
+npm run test:coverage > $BASEDIR/branch_target_coverage.txt
 
-# nvm use stable
+nvm use stable
 # running index.js in this file directory even calling from another directory
 node $BASEDIR/index.js $BASEDIR/branch_current_coverage.txt $BASEDIR/branch_target_coverage.txt $BASEDIR/changed_files.txt $use_filter
 
 # clean up change files after install (package-lock.json)
-# git restore .
-# git checkout $current_branch
+git restore .
+git checkout $current_branch
 # End of the script
